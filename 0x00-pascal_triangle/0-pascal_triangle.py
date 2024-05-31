@@ -2,6 +2,8 @@
 """
 this is an algorithm to solve the pascal triangle
 """
+
+
 def pascal_triangle(n):
     """
     the pascal triangle algorithm
