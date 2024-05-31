@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 this is an algorithm to solve the pascal triangle
 """
