@@ -1,16 +1,19 @@
 #!/usr/bin/python
 import sys
+
 """Nqueens alogrinthm solved"""
+
 
 class NQueens:
     """N queens object solved"""
+
     def __init__(self, n):
         self.n = n
         self.board = [[0 for _ in range(n)] for _ in range(n)]
         self.solutions = []
 
     def is_safe(self, row, col):
-        """ check is safe method"""
+        """check is safe method"""
         # Check this row on the left side
         for i in range(col):
             if self.board[row][i] == 1:
@@ -29,7 +32,7 @@ class NQueens:
         return True
 
     def solve_nqueens_util(self, col):
-        """ solve nqueens utils"""
+        """solve nqueens utils"""
         if col >= self.n:
             self.solutions.append([list(row) for row in self.board])
             return True
@@ -44,12 +47,12 @@ class NQueens:
         return res
 
     def solve(self):
-        """ solve nqueens method"""
+        """solve nqueens method"""
         self.solve_nqueens_util(0)
         return self.solutions
 
     def print_solutions(self):
-        """ print nqueens solutions"""
+        """print nqueens solutions"""
         for solution in self.solutions:
             result = []
             for i in range(self.n):
