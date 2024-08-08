@@ -4,6 +4,9 @@ A module to determine the winner of the prime game between Maria and Ben.
 """
 
 def is_prime(n):
+    """
+    check if a number is prime
+    """
     if n < 2:
         return False
     for i in range(2, int(n ** 0.5) + 1):
@@ -12,6 +15,9 @@ def is_prime(n):
     return True
 
 def isWinner(x, nums):
+    """
+    check for the winner
+    """
     maria_wins = 0
     ben_wins = 0
 
