@@ -3,40 +3,45 @@
 A module to determine the winner of the prime game between Maria and Ben.
 """
 
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
 def isWinner(x, nums):
-    """Determine the winner of the game after x rounds."""
-    if x == 0 or not nums:
-        return None
-
-    def sieve_of_eratosthenes(n):
-        """Generate primes up to n using Sieve of Eratosthenes."""
-        sieve = [True] * (n + 1)
-        sieve[0] = sieve[1] = False
-        for i in range(2, int(n ** 0.5) + 1):
-            if sieve[i]:
-                for j in range(i * i, n + 1, i):
-                    sieve[j] = False
-        return [i for i in range(2, n + 1) if sieve[i]]
-
     maria_wins = 0
     ben_wins = 0
 
     for n in nums:
-        primes = sieve_of_eratosthenes(n)
-        if not primes:
-            ben_wins += 1
-            continue
+        remaining = list(range(2, n+1))
+        while remaining:
+            if len(remaining) == 1:
+                ben_wins += 1
+                break
 
-        rounds = 0
-        while primes:
-            prime = primes[0]
-            primes = [p for p in primes if p % prime != 0]
-            rounds += 1
+            if len(remaining) == 0:
+                maria_wins += 1
+                break
 
-        if rounds % 2 == 1:
-            maria_wins += 1
-        else:
-            ben_wins += 1
+            if remaining[0] == 1:
+                remaining.pop(0)
+                continue
+
+            if is_prime(remaining[0]):
+                player = "Maria" if len(remaining) % 2 == 1 else "Ben"
+                prime = remaining[0]
+                for i in range(prime, n+1, prime):
+                    if i in remaining:
+                        remaining.remove(i)
+                if player == "Maria":
+                    maria_wins += 1
+                else:
+                    ben_wins += 1
+            else:
+                remaining.pop(0)
 
     if maria_wins > ben_wins:
         return "Maria"
@@ -44,4 +49,3 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
-
